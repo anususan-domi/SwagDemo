@@ -1,0 +1,336 @@
+
+
+                              import java.time.Duration;
+                              import java.util.List;
+
+                              import org.openqa.selenium.By;
+                              import org.openqa.selenium.WebDriver;
+                              import org.openqa.selenium.WebElement;
+                              import org.openqa.selenium.chrome.ChromeDriver;
+                              import org.openqa.selenium.interactions.Actions;
+                              import org.openqa.selenium.support.ui.Select;
+
+
+/*              
+             
+                                1)Login to the site with the credentials provided on the login page of sauce demo website.
+		                2)Add cases to check input field validations
+				3)Sort the products in price low to high order
+				4)Add all items to the cart
+				5)Go to the Cart page and remove items that have a price <$15 
+				6)Click on the Checkout button 
+				7)Enter the details on your information page 
+                                8)Click on the Continue button 
+                                9)Finish the checkout by clicking the Finish button 
+                                10)Return to the home page Perform logout
+                */
+
+
+                          //1)Login to the site with the credentials provided on the login page of sauce demo website.
+
+                           public class Saucedemo {
+
+	                    public static void main(String[] args) throws InterruptedException {
+		
+		
+		          // Launch browser
+		
+		             WebDriver driver=new ChromeDriver();
+		
+		          // Declaration of Implicit Wait Statement
+		             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		
+		          //  open Url on the browser
+		              driver.get("https://www.saucedemo.com/");
+		              driver.manage().window().maximize();
+		          //  Provide username  - standard_user
+		              driver.findElement(By.id("user-name")).sendKeys("standard_user");
+		
+		          //  Provide password  - secret_sauce
+		              driver.findElement(By.id("password")).sendKeys("secret_sauce");
+		
+		          // Click on Submit button 
+		              driver.findElement(By.xpath("//input[@id='login-button']")).click();
+		
+		          //2) Add cases to check input field validations
+		
+		           // Check the Primary header is shown or not:
+		
+		           String expprm_head= "Swag Labs";
+		           String actprm_head=driver.findElement(By.xpath("//div[@class='app_logo']")).getText();
+		
+		          if(actprm_head.equals(expprm_head))
+		          {
+		          System.out.println("The Primary Header of the page is :"+expprm_head);
+		          }
+		          else
+			  System.out.println("The Primary Header of the page goes wrong ");
+		
+		         // Check the  Secondary header is written or not
+		
+		          String expsec_head="Products";
+		
+		          String actsec_head=driver.findElement(By.xpath("(//span[@class='title'])[1]")).getText();
+		
+		          if(actsec_head.equals(expsec_head))
+		          {
+		          System.out.println("The Secondary Header of the page is :"+actsec_head);
+		          }
+		          else
+			  System.out.println("The Secondary Header of the page goes wrong ");
+		
+		          //Validations in menu side buttons
+		
+		           WebElement button = driver.findElement(By.id("react-burger-menu-btn"));
+		
+		           button.click();
+		
+		          //Verify if the button is displayed:
+		
+		           boolean isDisplayed = button.isDisplayed();
+		 
+		           System.out.println("The display status of menu button is"+isDisplayed);
+		
+		           //Verify if the button is enabled:
+		
+		            boolean isEnabled = button.isEnabled();
+		
+		             System.out.println("The enable status of menu button is"+isEnabled);
+		
+		              String buttonText = button.getText();
+		
+		              System.out.println("The title of button is :"+buttonText);
+		
+		            //Menu Item 1---All Items
+		
+		
+		             String options_1=driver.findElement(By.xpath("//a[@id='inventory_sidebar_link']")).getText();
+		
+		             System.out.println("Title of Menu Item 1>>>>>>>"+options_1);
+		
+		              //WebElement button = driver.findElement(By.id("react-burger-menu-btn"));
+		
+		              WebElement me_item1= driver.findElement(By.xpath("//a[@id='inventory_sidebar_link']"));
+		 
+		              me_item1.click();
+		
+                             boolean isDisplayed_1 = me_item1.isDisplayed();
+		
+		              System.out.println("The display status of menu item 1 is"+isDisplayed_1);
+		
+		
+		
+		               boolean isEnabled_1 = me_item1.isEnabled();
+		
+		               System.out.println("The enable status of menu item1 is"+isEnabled_1);
+		
+		
+		             //Menu Item 2 ---About
+		
+                             String options_2=driver.findElement(By.xpath("//a[@id='about_sidebar_link']")).getText();
+		
+		             System.out.println("Title of Menu Item 2>>>>>>>"+options_2);
+		
+		             WebElement me_item2= driver.findElement(By.xpath("//a[@id='about_sidebar_link']"));
+		 
+		
+                             boolean isDisplayed_2 = me_item2.isDisplayed();
+		
+		             System.out.println("The display status of menu item 2 is"+isDisplayed_2);
+		
+
+		
+		              boolean isEnabled_2 = me_item2.isEnabled();
+		
+		              System.out.println("The enable status of menu item2 is"+isEnabled_2);
+		
+		
+		
+		               driver.navigate().back();
+		
+		              //Menu Item 3 
+		
+                           String options_3=driver.findElement(By.xpath("//a[@id='logout_sidebar_link']")).getText();
+		
+		           System.out.println("Title of Menu Item 3>>>>>>>"+options_3);
+		
+		           WebElement me_item3= driver.findElement(By.xpath("//a[@id='logout_sidebar_link']"));
+		 
+		
+                           boolean isDisplayed_3 = me_item3.isDisplayed();
+		
+		           System.out.println("The display status of menu item 3 is"+isDisplayed_3);
+		
+		         //Verify if the button is enabled:
+		
+		           boolean isEnabled_3 = me_item3.isEnabled();
+		
+		           System.out.println("The enable status of menu item3 is"+isEnabled_3);
+		
+		
+		
+		          //Menu Item 4
+		
+                           String options_4=driver.findElement(By.xpath("//a[@id='reset_sidebar_link']")).getText();
+		
+		           System.out.println("Title of Menu Item 4>>>>>>>"+options_4);
+		
+		           WebElement me_item4= driver.findElement(By.xpath("//a[@id='reset_sidebar_link']"));
+		 
+		            me_item4.click();
+		
+                            boolean isDisplayed_4 = me_item4.isDisplayed();
+		
+		            System.out.println("The display status of menu item 4 is "+isDisplayed_4);
+		
+		             //Verify if the button is enabled:
+		
+		              boolean isEnabled_4 = me_item4.isEnabled();
+		
+		              System.out.println("The enable status of menu item4 is "+isEnabled_4);
+		
+		
+		              //Closing Menu
+		
+		                driver.findElement(By.xpath("//button[@id='react-burger-cross-btn']")).click();
+		
+		 
+		 
+		 
+		              //Product Item 1 validation
+		
+		 
+		                Actions actions=new Actions(driver); 
+		                WebElement Backbag=driver.findElement(By.id("item_4_title_link"));
+		  
+		 
+		                   actions.moveToElement(Backbag).click().perform();
+		                   Thread.sleep(2000);
+		  
+		                   // Get Product Name
+		                    String ProductName=driver.findElement(By.xpath("//div[@class='inventory_details_name large_size']")).getText();
+		                    System.out.println(ProductName);
+		  
+		                    Boolean image=driver.findElement(By.xpath("//div[@class='inventory_details_name large_size']")).isDisplayed();
+		                    Boolean amount=driver.findElement(By.xpath("//div[@class='inventory_details_price']")).isDisplayed();
+		  
+		                    System.out.println("The status of image and amount  displayed in product page is "+image + "  " +amount);
+		  
+		                   //4) Add all items to the cart
+		  
+		                    //Add product 1
+		                     driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
+		  
+		                    //Returning to product page
+		  
+		                     driver.findElement(By.xpath("//button[@id='back-to-products']")).click();
+		  
+		                      //3)Sort the products in price low to high order
+		  
+		 
+		  
+		                     WebElement drp=driver.findElement(By.xpath("//select[@class='product_sort_container']"));
+		
+		                     Select drpEle=new Select(drp);
+			
+			
+			             // select an option from dropdown
+			 
+			               drpEle.selectByValue("lohi"); 
+			
+		                     //Adding product 2
+		  
+		                     driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bolt-t-shirt']")).click();
+		
+                                      //Adding product 3
+		  
+		                     driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-onesie']")).click();
+		
+                                      //Adding product 4
+		  
+		                       driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
+		
+                                       //Adding product 5
+		  
+		                        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-fleece-jacket']")).click();
+		
+                                        //Adding product 6
+		  
+		                        driver.findElement(By.xpath("//button[@id='add-to-cart-test.allthethings()-t-shirt-(red)']")).click();
+		  
+		  
+		  
+		  
+		  
+		                         // 5) Go to the Cart page and remove items that have a price <$15
+		  
+		                       driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
+		
+		                             //Removing items of price less than 15 dollars
+		  
+		                      List<WebElement> itemsToRemove = driver.findElements(By.className("inventory_item_price"));
+		  
+		  
+		
+		                            for (WebElement item : itemsToRemove) {
+			                     String priceText = item.getText().replace("$", "");
+			                    double price = Double.parseDouble(priceText);
+			                      if (price < 15) {
+			                      WebElement removeButton = item.findElement(By.xpath("./following-sibling::button"));
+			                      removeButton.click();
+			                      }
+			                     }
+		  
+		                             System.out.println(" User removed items less than $15 ");
+		  
+		                            //6) Click on the Checkout button 
+		  
+		  
+		                             driver.findElement(By.xpath("//button[@id='checkout']")).click(); 
+		    
+		                              System.out.println("User clicked on Checkout  ");
+		
+		                             //7) Enter the details on your information page 
+		  
+		                               driver.findElement(By.id("first-name")).sendKeys("Steve");
+		  
+		                               driver.findElement(By.id("last-name")).sendKeys("Justin");
+		  
+		                               driver.findElement(By.id("postal-code")).sendKeys("230501");
+		  
+		                                System.out.println("User sucessfully entered information details : ");
+		  
+		  
+		                              // 8) Click on the Continue button 
+		  
+		                                driver.findElement(By.xpath("//input[@id='continue']")).click();
+		   
+		                                System.out.println("User Perform continue operation");
+		  
+		                             // 9)Finish the checkout by clicking the Finish button 
+		  
+		                                 driver.findElement(By.xpath("//button[@id='finish']")).click();
+		   
+		                                 System.out.println("Going to perform checkout");
+		  
+		                               //10) Return to the home page Perform logout
+		  
+		                                 driver.findElement(By.xpath("//button[@id='back-to-products']")).click();
+		   
+		                                 System.out.println("Return to the home page to Perform logout");
+		  
+		                                 //Perform Logout
+		  
+		                                 driver.findElement(By.xpath("//button[@id='react-burger-menu-btn']")).click();
+		                                 driver.findElement(By.xpath("//a[@id='logout_sidebar_link']")).click();
+		  
+		                                 System.out.println("User successfully log out");
+		
+		                                 driver.quit();
+		
+		
+		        
+
+	}
+
+}
